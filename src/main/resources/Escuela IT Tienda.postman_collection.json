@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "09cb3e44-621d-4457-888a-08955f418e0d",
+		"name": "Escuela IT Tienda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "17355927",
+		"_collection_link": "https://dark-comet-993150.postman.co/workspace/211bb348-cbd6-427d-b1a4-29a01d75c059/collection/17355927-09cb3e44-621d-4457-888a-08955f418e0d?action=share&source=collection_link&creator=17355927"
+	},
+	"item": [
+		{
+			"name": "Get Personas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/personas"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Personas por id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/personas/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Persona",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 4,\r\n    \"name\": \"Ana\",\r\n    \"lastName\": \"Requena\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/personas/2"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Persona",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 4,\r\n    \"name\": \"Ana\",\r\n    \"lastName\": \"Requena\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/personas"
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar un atributo de Persona",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Chichino\",\r\n    \"lastName\": \"Mr. Flawers\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/personas/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar Persona por id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": "{{baseUrl}}/personas/2"
+			},
+			"response": []
+		}
+	]
+}
