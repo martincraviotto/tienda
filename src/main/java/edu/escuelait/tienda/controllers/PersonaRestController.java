@@ -5,6 +5,8 @@ import edu.escuelait.tienda.configurations.AppConfig;
 import edu.escuelait.tienda.configurations.TiendaParametrosConfig;
 import edu.escuelait.tienda.domain.Persona;
 import edu.escuelait.tienda.services.PersonasService;
+import edu.escuelait.tienda.validators.groups.OnCreate;
+import edu.escuelait.tienda.validators.groups.OnUpdate;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -88,7 +90,7 @@ public class PersonaRestController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createPersona(@RequestBody @Validated Persona persona){
+    public ResponseEntity<?> createPersona(@RequestBody @Validated(OnCreate.class) Persona persona){
         this.personas.add(persona);
 
         URI location= ServletUriComponentsBuilder
@@ -101,7 +103,7 @@ public class PersonaRestController {
     }
 
     @PutMapping
-    public ResponseEntity<?> updatePesona(@RequestBody Persona persona){
+    public ResponseEntity<?> updatePesona(@RequestBody @Validated(OnUpdate.class) Persona persona){
         for (Persona per: this.personas) {
             if(per.getId().equals(persona.getId())) {
                 per.setName(persona.getName());
