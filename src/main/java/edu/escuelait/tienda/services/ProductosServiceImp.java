@@ -2,7 +2,9 @@ package edu.escuelait.tienda.services;
 
 
 import edu.escuelait.tienda.domain.Producto;
+import edu.escuelait.tienda.mappers.ProductosMapper;
 import edu.escuelait.tienda.persistance.repositories.ProductorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -15,23 +17,19 @@ public class ProductosServiceImp implements ProductosService{
 
     ProductorRepository productorRepository;
 
-    public ProductosServiceImp(ProductorRepository productorRepository) {
+
+    ProductosMapper productosMapper;
+
+    public ProductosServiceImp(ProductorRepository productorRepository, ProductosMapper productosMapper) {
         this.productorRepository = productorRepository;
+        this.productosMapper = productosMapper;
     }
 
     @Override
     public Optional<Producto> getProductoPorId(Long id) {
-
-//        if(id > 0 ){
-//            Producto ordenador =  new Producto(1L,"Ordenador");
-//            return Optional.of(ordenador);
-//        }
-//        return Optional.empty();
-
         return this.productorRepository.findById(id)
                 .map(productoEntity -> {
-                    Producto producto = new Producto(productoEntity.getId(), productoEntity.getName());
-                    producto.setDescription(productoEntity.getDescription());
+                    Producto producto = this.productosMapper.mapProducto(productoEntity);
                     return producto;
                 });
 
@@ -41,9 +39,7 @@ public class ProductosServiceImp implements ProductosService{
         return this.productorRepository
                     .findAll(pageable)
                     .stream().map(productoEntity -> {
-                        Producto producto = new Producto(productoEntity.getId(), productoEntity.getName());
-                        producto.setDescription(productoEntity.getDescription());
-                        return producto;
+                        return this.productosMapper.mapProducto(productoEntity);
                     }).collect(Collectors.toList());
     }
 }
