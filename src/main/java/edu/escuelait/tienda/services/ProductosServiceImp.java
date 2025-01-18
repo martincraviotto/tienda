@@ -4,7 +4,7 @@ package edu.escuelait.tienda.services;
 import edu.escuelait.tienda.domain.Producto;
 import edu.escuelait.tienda.mappers.ProductosMapper;
 import edu.escuelait.tienda.persistance.repositories.ProductorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j //para log de errores
 @Service
 public class ProductosServiceImp implements ProductosService{
 
@@ -21,6 +22,7 @@ public class ProductosServiceImp implements ProductosService{
     ProductosMapper productosMapper;
 
     public ProductosServiceImp(ProductorRepository productorRepository, ProductosMapper productosMapper) {
+        log.info("ejecutando constructor");
         this.productorRepository = productorRepository;
         this.productosMapper = productosMapper;
     }
@@ -41,5 +43,16 @@ public class ProductosServiceImp implements ProductosService{
                     .stream().map(productoEntity -> {
                         return this.productosMapper.mapProducto(productoEntity);
                     }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Producto> getProductoPorIdLess(Long id) {
+        return this.productorRepository
+                    .findByIdLessThan(id)
+                    .stream()
+                    .map(productoEntity -> {
+                            return this.productosMapper.mapProducto(productoEntity);
+                        })
+                    .collect(Collectors.toList());
     }
 }

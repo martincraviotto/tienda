@@ -12,4 +12,6 @@ public interface ProductosService {
     public Optional<Producto> getProductoPorId(Long id);
 
     public List<Producto> getAllProductos(Pageable pageable);
+
+    public List<Producto> getProductoPorIdLess(Long id);
 }

@@ -49,4 +49,10 @@ public class ProductosRestController {
         return ResponseEntity.ok(this.productosService.getAllProductos(pageable));
     }
 
+
+    @GetMapping("/lessThan/{id}")
+    public ResponseEntity<?> getAllProductosByIdLess(@PathVariable Long id ,Pageable pageable){
+        return ResponseEntity.ok(this.productosService.getProductoPorIdLess(id));
+    }
+
 }
