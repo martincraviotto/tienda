@@ -1,10 +1,7 @@
 package com.maac.personal.tienda.controllers;
 
 import com.maac.personal.tienda.domain.Persona;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,11 +36,22 @@ public class PersonaRestController {
         return personas;
     }
 
-    public Persona createPersona(Persona persona){
-        return null;
+    @PostMapping("/personas")
+    public Persona createPersona(@RequestBody Persona persona){
+        this.personas.add(persona);
+        return persona;
     }
 
-    public Persona updatePersona(Persona persona){
+    @PutMapping("/personas")
+    public Persona updatePersona(@RequestBody Persona persona){
+
+        for (Persona per : personas){
+            if (per.getId().equals(persona.getId())) {
+                per.setName(persona.getName());
+                per.setLastName(persona.getLastName());
+                return per;
+            }
+        }
         return null;
     }
 
