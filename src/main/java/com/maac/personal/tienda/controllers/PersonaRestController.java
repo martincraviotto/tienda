@@ -1,12 +1,16 @@
 package com.maac.personal.tienda.controllers;
 
 import com.maac.personal.tienda.domain.Persona;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/personas")
 public class PersonaRestController {
 
 
@@ -18,53 +22,70 @@ public class PersonaRestController {
     );
 
 
-    @GetMapping("/personas/{id}")
-    public Persona getPersonaById(@PathVariable Long id){
-        /*return (Persona) personas
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getPersonaById(@PathVariable Long id){
+        if(id < 0)
+            return ResponseEntity.badRequest().build();
+
+        /*
+           return (Persona) personas
                 .stream()
-                .filter( persona -> persona.getId().equals(id));*/
+                .filter( persona -> persona.getId().equals(id));
+        */
+
         for (Persona persona : personas){
             if (persona.getId().equals(id))
-                return persona;
+                return ResponseEntity.ok(persona);
         }
-        return null;
+        return ResponseEntity.notFound().build();
     }
 
 
-    @GetMapping("/personas")
-    public List<Persona> listPersonas(){
-        return personas;
+    @GetMapping
+    public ResponseEntity<List<Persona>> listPersonas(){
+        return ResponseEntity.ok(personas);
     }
 
-    @PostMapping("/personas")
-    public Persona createPersona(@RequestBody Persona persona){
+    @PostMapping
+    public ResponseEntity<Persona> createPersona(@RequestBody Persona persona){
         this.personas.add(persona);
-        return persona;
+        URI location = ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .path("/íd}")
+                        .buildAndExpand(persona.getId())
+                        .toUri();
+        return ResponseEntity.created(location).build();
     }
 
-    @PutMapping("/personas")
-    public Persona updatePersona(@RequestBody Persona persona){
+    @PutMapping
+    public ResponseEntity<Persona> updatePersona(@RequestBody Persona persona){
 
         for (Persona per : personas){
             if (per.getId().equals(persona.getId())) {
                 per.setName(persona.getName());
                 per.setLastName(persona.getLastName());
-                return per;
+                return ResponseEntity.ok(per);
             }
         }
-        return null;
+        return ResponseEntity.notFound().build();
     }
 
 
-    @DeleteMapping("/personas/{id}")
-    public void deletePersona(@PathVariable Long id ){
-        /*
-        * for (Persona persona : personas){
-            if (persona.getId().equals(id))
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletePersona(@PathVariable Long id ){
+
+        if(id < 0)
+            return ResponseEntity.badRequest().build();
+
+
+        for (Persona persona : personas){
+            if (persona.getId().equals(id)) {
                 this.personas.remove(persona);
-        }
-        * */
-        personas.removeIf(persona -> persona.getId().equals(id));
+                return ResponseEntity.noContent().build();
+            }
+         }
+        return ResponseEntity.notFound().build();
+
     }
 
 
