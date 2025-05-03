@@ -24,7 +24,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setProperty("errorCategory","Generic");
         problemDetail.setProperty("timestamp", Instant.now());
         return problemDetail;
-
     }
 
 
