@@ -5,6 +5,8 @@ import com.maac.personal.tienda.configurations.TiendaParametrosConfig;
 import com.maac.personal.tienda.domain.Persona;
 import com.maac.personal.tienda.services.PersonasService;
 import com.maac.personal.tienda.services.PersonasServiceImpl;
+import com.maac.personal.tienda.validators.grupos.OnCreate;
+import com.maac.personal.tienda.validators.grupos.OnUpdate;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -101,7 +103,7 @@ public class PersonaRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Persona> createPersona(@RequestBody @Validated  Persona persona){
+    public ResponseEntity<Persona> createPersona(@RequestBody @Validated(OnCreate.class)  Persona persona){
         this.personas.add(persona);
         URI location = ServletUriComponentsBuilder
                         .fromCurrentRequest()
@@ -112,7 +114,7 @@ public class PersonaRestController {
     }
 
     @PutMapping
-    public ResponseEntity<Persona> updatePersona(@RequestBody Persona persona){
+    public ResponseEntity<Persona> updatePersona(@RequestBody @Validated(OnUpdate.class) Persona persona){
 
         for (Persona per : personas){
             if (per.getId().equals(persona.getId())) {
