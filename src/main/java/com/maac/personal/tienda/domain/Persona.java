@@ -1,5 +1,8 @@
 package com.maac.personal.tienda.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.maac.personal.tienda.validators.Cuit;
 import com.maac.personal.tienda.validators.grupos.OnCreate;
 import com.maac.personal.tienda.validators.grupos.OnUpdate;
@@ -11,15 +14,18 @@ import java.time.LocalDate;
 
 @Schema(description = "Este es el esquema de una Persona") //swagger
 @Data
+@JsonPropertyOrder({"edad","id","nombre","lastName","domicilio","casado","email","puntuacion","ranking", "fechaNacimiento", "cuit","registro"})
 public class Persona {
 
     @Schema(description = "Identificador de la Persona", example = "1")//swagger
     @NonNull
     private Long id;
 
+    @JsonProperty("nombre")
     @NonNull //loombok
     private String name;
 
+    @JsonIgnore
     @NotNull(groups = OnCreate.class) //javavalidation
     private String lastName;
 
