@@ -54,6 +54,14 @@
 		</dependency>
 		<!-- Fin Dependencias de Spring docs swagger -->
 
+		<!-- Dependencias de validaciones -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<!-- Fin Dependencias de validaciones -->
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

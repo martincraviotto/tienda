@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -100,7 +101,7 @@ public class PersonaRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Persona> createPersona(@RequestBody Persona persona){
+    public ResponseEntity<Persona> createPersona(@RequestBody @Validated  Persona persona){
         this.personas.add(persona);
         URI location = ServletUriComponentsBuilder
                         .fromCurrentRequest()
