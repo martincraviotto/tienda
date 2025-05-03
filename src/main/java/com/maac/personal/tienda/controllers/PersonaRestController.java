@@ -1,5 +1,7 @@
 package com.maac.personal.tienda.controllers;
 
+import com.maac.personal.tienda.configurations.AppConfig;
+import com.maac.personal.tienda.configurations.TiendaParametrosConfig;
 import com.maac.personal.tienda.domain.Persona;
 import com.maac.personal.tienda.services.PersonasService;
 import com.maac.personal.tienda.services.PersonasServiceImpl;
@@ -7,8 +9,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,6 +21,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @RestController
 @RequestMapping("/personas")
 @Tag(name = "API Personas", description = "CRUD de Personas de Tienda") //swagger
@@ -25,9 +30,19 @@ public class PersonaRestController {
     //@Autowired
     PersonasService personasService;
 
+    AppConfig appConfig;
+
+    TiendaParametrosConfig tiendaParametrosConfig;
+
     // Se recomienda esta forma para realizar la inyecciòn
-    public PersonaRestController(@Qualifier("jugadores") PersonasService personasService) {
+    public PersonaRestController( @Lazy  PersonasService personasService
+                ,AppConfig appConfig
+                ,TiendaParametrosConfig tiendaParametrosConfig) {
         this.personasService = personasService;
+        this.appConfig=appConfig;
+        this.tiendaParametrosConfig=tiendaParametrosConfig;
+        log.info("Estos son los parametros configurados : {}", this.appConfig);
+        log.info("Parametros de la Tienda {}", tiendaParametrosConfig);
     }
 
     ArrayList<Persona> personas = new ArrayList<>(
