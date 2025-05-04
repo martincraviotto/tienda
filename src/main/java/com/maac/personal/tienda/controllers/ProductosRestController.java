@@ -2,6 +2,9 @@ package com.maac.personal.tienda.controllers;
 
 import com.maac.personal.tienda.exceptions.ProductoNotFoundException;
 import com.maac.personal.tienda.services.ProductosService;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +29,13 @@ public class ProductosRestController {
                .orElseThrow(ProductoNotFoundException::new);
 
 
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllProductos(
+            @PageableDefault(size = 2,sort={"name","id"}, direction = Sort.Direction.ASC)
+            Pageable pageable){
+        return ResponseEntity.ok(this.productosService.AllProductos(pageable));
     }
 
 
