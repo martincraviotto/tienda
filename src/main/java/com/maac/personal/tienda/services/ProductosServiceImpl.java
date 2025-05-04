@@ -4,6 +4,7 @@ import com.maac.personal.tienda.domain.Producto;
 import com.maac.personal.tienda.mappers.ProductosMapper;
 import com.maac.personal.tienda.persistence.entities.ProductoEntity;
 import com.maac.personal.tienda.persistence.repositories.ProductoRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ProductosServiceImpl implements ProductosService {
 
@@ -19,6 +21,7 @@ public class ProductosServiceImpl implements ProductosService {
     ProductosMapper productosMapper;
 
     public ProductosServiceImpl(ProductoRepository productoRepository, ProductosMapper productosMapper) {
+        log.info("Ejecutando constructor");
         this.productoRepository = productoRepository;
         this.productosMapper = productosMapper;
     }
