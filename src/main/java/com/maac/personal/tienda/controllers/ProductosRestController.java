@@ -39,4 +39,9 @@ public class ProductosRestController {
     }
 
 
+    @GetMapping("/less/{id}")
+    public ResponseEntity<?> getAllProductosByIdLessThan(@PathVariable Long id ){
+        return ResponseEntity.ok(this.productosService.AllProductosByIdLessThan(id));
+    }
+
 }

@@ -12,4 +12,6 @@ public interface ProductosService {
 
 
     public List<Producto> AllProductos(Pageable pageable);
+
+    public List<Producto> AllProductosByIdLessThan(Long id);
 }
